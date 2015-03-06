@@ -1,10 +1,37 @@
 "use strict";
 
+var knex = require('knex')({
+  client: 'sqlite3',
+  connection: {
+    filename: './Databases/FinanzDb.db3'
+  }
+});
+
 exports.api = {
 
   getBalances: function (req, res, next) {
-    //return next(new Error('error detected'));
-    res.send('Function getBalance reached.');
-   }
-
+    knex.select().table('konto_salden')
+        .then(fetchRows(res))
+        .catch(catchError(res, next))
+  }
 }
+
+// -------------------------------------------
+// universal promise responses to knex queries
+// -------------------------------------------
+
+var fetchRows = function (res) {
+  return function (rows) {
+    if (rows) {
+      res.end(JSON.stringify(rows));
+    }
+  }
+};
+
+var catchError = function (res, next) {
+  return function (err) {
+    if (err) {
+      return next(err);
+    }
+  }
+};
