@@ -1,0 +1,24 @@
+"use strict";
+
+var express = require('express');
+var app = express();
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
+
+var port = process.env.port || 8080;
+var serverProject = "DFT.01";
+
+var routes = require('./routes');
+
+app.get('/finance/api/getBalances', routes.finance.api.getBalances);
+
+app.use(function (err, req, res, nexgt) {
+  var msg ='invalid request / error occured: ' + err;
+  console.log(msg);
+  res.send(msg);
+});
+
+app.listen(port);
+console.log('Server (' + serverProject + ') is running at port ' + port);
+
