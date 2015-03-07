@@ -20,8 +20,10 @@ exports.api = {
 // universal promise responses to knex queries
 // -------------------------------------------
 
-var fetchRows = function (res) {
+var fetchRows = function (res, trans) {
   return function (rows) {
+    if (trans)
+      rows = trans(rows);
     if (rows) {
       res.end(JSON.stringify(rows));
     }
