@@ -1,11 +1,15 @@
 "use strict";
 
-var knex = require('knex')({
-  client: 'sqlite3',
-  connection: {
-    filename: './Databases/FinanzDb.db3'
-  }
-});
+var knex;
+
+exports.setup = function (app) {
+  knex = require('knex')({
+    client: 'sqlite3',
+    connection: {
+      filename: app.get('finance_db')
+    }
+  });
+};
 
 exports.api = {
 
@@ -15,6 +19,7 @@ exports.api = {
         .catch(catchError(res, next))
   }
 }
+
 
 // -------------------------------------------
 // universal promise responses to knex queries
