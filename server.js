@@ -15,13 +15,14 @@ else
   app.set('finance_db', './Databases/FinanzDb_Prod.db3')
 
 var routes = require('./routes');
-routes.finance.setup(app)
-;
+routes.finance.setup(app);
+
 app.get('/finance/api/getBalances', routes.finance.api.getBalances);
 
 app.use(function (err, req, res, nexgt) {
   var msg = 'invalid request / error occured: ' + err;
   console.log(msg);
+  res.status(err.status || 500);
   res.send(msg);
 });
 
