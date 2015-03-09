@@ -2,9 +2,11 @@
 
 var express = require('express');
 var app = express();
+var logger = require('morgan');
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(logger('dev'));
 
 var port = process.env.port || 8080;
 var serverProject = "DFT.01";
