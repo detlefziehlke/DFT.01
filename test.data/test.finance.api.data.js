@@ -10,3 +10,8 @@ exports.getBalance_testResponse = [
   {"konto": "Tagegeld", "saldo": 91142.48},
   {"konto": "VISA", "saldo": -12.9}
 ];
+
+exports.getEntriesByAccount = {
+  ATUAccId: 2, ATUEntryCount: 5,
+  KasseAccName: 'Kasse', KasseEntryCount: 520
+};

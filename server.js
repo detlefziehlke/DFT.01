@@ -20,6 +20,7 @@ var routes = require('./routes');
 routes.finance.setup(app);
 
 app.get('/finance/api/getBalances', routes.finance.api.getBalances);
+app.get('/finance/api/getEntries/:acc', routes.finance.api.getEntriesByAccount);
 
 app.use(function (err, req, res, nexgt) {
   var msg = 'invalid request / error occured: ' + err;
