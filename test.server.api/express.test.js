@@ -32,6 +32,7 @@ describe('express api server', function () {
           done();
         });
   });
+
   var accName = testResponseData.getEntriesByAccount.KasseAccName;
   it('retrieve entries by account, Konto.Name=' + accName, function (done) {
     var url = url_pref + '/getEntries/' + accName;
@@ -42,6 +43,19 @@ describe('express api server', function () {
           expect(typeof res.body).to.eql('object');
           var resData = JSON.parse(res.text);
           expect(resData.length).to.eql(testResponseData.getEntriesByAccount.KasseEntryCount);
+          done();
+        });
+  });
+
+  it('retrieve all entries', function (done) {
+    var url = url_pref + '/getEntries';
+    superagent.get(url)
+        .buffer(true)
+        .end(function (e, res) {
+          expect(e).to.eql(null);
+          expect(typeof res.body).to.eql('object');
+          var resData = JSON.parse(res.text);
+          expect(resData.length).to.eql(testResponseData.getAllEntries.NumberOfEntries);
           done();
         });
   });

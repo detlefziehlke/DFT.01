@@ -15,3 +15,7 @@ exports.getEntriesByAccount = {
   ATUAccId: 2, ATUEntryCount: 5,
   KasseAccName: 'Kasse', KasseEntryCount: 520
 };
+
+exports.getAllEntries = {
+  NumberOfEntries: 873
+};

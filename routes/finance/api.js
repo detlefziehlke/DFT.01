@@ -21,6 +21,18 @@ exports.api = {
 
   getEntriesByAccount: function (req, res, next) {
     var acc = req.params.acc;
+    var where = {};
+    if (acc)
+      where = isNaN(acc) ? {'konto_name': acc} : {'konto_id': acc};
+
+    knex.select().table('konto_buchungen_komplett')
+        .where(where)
+        .then(fetchRows(res))
+        .catch(catchError(res, next))
+  },
+
+  getEntriesByAccount_: function (req, res, next) {
+    var acc = req.params.acc;
     var where;
     if (isNaN(acc))
       where = {'Konto.Name': acc};
@@ -64,6 +76,7 @@ var fetchRows = function (res, trans) {
     if (trans)
       rows = trans(rows);
     if (rows) {
+      res.writeHead(200, {"Content-Type": "application/json"});
       res.end(JSON.stringify(rows));
     }
   }
