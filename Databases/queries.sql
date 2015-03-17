@@ -31,7 +31,5 @@
   left join Buchung as Rebooking on Rebooking.Id = Buchung.GegenbuchungId
 
 ;
-
--- Databases/FinanzDb_Test.db3 < Databases/queries.sql
--- /Users/detlefziehlke/WebstormProjects/DettiFinanceTools/DFT.01/Databases/queries.sql
--- /Databases/queries.sql
+-- Ausführen am lokalen Terminal
+-- sqlite3 Databases/FinanzDb_Test.db3 < Databases/queries.sql
