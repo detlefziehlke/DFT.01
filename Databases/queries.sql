@@ -19,7 +19,10 @@
    coalesce(Subcat.Id, 'NO_VALUE' ) as sub_categorie_id,
    coalesce(Subcat.Name, 'NO_VALUE' ) as sub_categorie_name,
 
-   coalesce(Rebooking.Id, -1) as umbuchung_id
+   coalesce(Rebooking.Id, -1) as umbuchung_id,
+   coalesce(Rebooking.KontoId, -1) as gegenkonto_id,
+
+   coalesce(Gegenkonto.name, -1) as gegenkonto_name
 
   from Buchung
   inner join Konto on Konto.Id = Buchung.KontoId
@@ -29,6 +32,7 @@
   left join Kategorie as Maincat on Maincat.Id = Subcat.ParentId
 
   left join Buchung as Rebooking on Rebooking.Id = Buchung.GegenbuchungId
+  left join Konto as Gegenkonto on Gegenkonto.Id = Rebooking.KontoId
 
 ;
 -- Ausführen am lokalen Terminal
