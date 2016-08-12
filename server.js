@@ -19,12 +19,24 @@ else
 var routes = require('./routes');
 routes.finance.setup(app);
 
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE');
+  next();
+});
+
+
 app.get('/finance/api/getBalances', routes.finance.api.getBalances);
 app.get('/finance/api/getEntriesAll', routes.finance.api.getEntries);
 app.get('/finance/api/getEntriesByAccount/:acc', routes.finance.api.getEntries);
 app.get('/finance/api/getEntriesById/:id', routes.finance.api.getEntries);
+app.get('/finance/api/getEntryById/:id', routes.finance.api.getEntry);
 
-app.use(function (err, req, res, nexgt) {
+app.get('/finance/api/getAccounts', routes.finance.api.getAccounts);
+app.get('/finance/api/getPartners', routes.finance.api.getPartners);
+app.get('/finance/api/getCategories', routes.finance.api.getCategoriess);
+
+app.use(function (err, req, res, next) {
   var msg = 'invalid request / error occured: ' + err;
   console.log(msg);
   res.status(err.status || 500);

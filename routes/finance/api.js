@@ -3,10 +3,12 @@
 var knex;
 
 exports.setup = function (app) {
+    var filename = app.get('finance_db');
+    console.log('connecting to db', filename);
     knex = require('knex')({
         client: 'sqlite3',
         connection: {
-            filename: app.get('finance_db')
+            filename: filename
         }
     });
 };
@@ -15,6 +17,27 @@ exports.api = {
 
     getBalances: function (req, res, next) {
         knex.select().table('konto_salden')
+            .then(fetchRows(res))
+            .catch(catchError(res, next))
+    },
+
+    getAccounts: function (req, res, next) {
+        knex.select().table('konto')
+            .orderBy('name')
+            .then(fetchRows(res))
+            .catch(catchError(res, next))
+    },
+
+    getPartners: function (req, res, next) {
+        knex.select().table('Empfaenger')
+            .orderBy('name')
+            .then(fetchRows(res))
+            .catch(catchError(res, next))
+    },
+
+    getCategoriess: function (req, res, next) {
+        knex.select().table('Kategorie')
+            .orderBy('name')
             .then(fetchRows(res))
             .catch(catchError(res, next))
     },
@@ -34,6 +57,16 @@ exports.api = {
 
         knex.select().table('konto_buchungen_komplett')
             .where(where)
+            .then(fetchRows(res))
+            .catch(catchError(res, next))
+    },
+
+    getEntry: function (req, res, next) {
+        var id = req.params.id;
+        console.log('id=' + id);
+
+        knex.select().table('buchung')
+            .where({'Id': id})
             .then(fetchRows(res))
             .catch(catchError(res, next))
     },
