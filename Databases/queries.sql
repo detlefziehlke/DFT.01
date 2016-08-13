@@ -22,7 +22,10 @@
    coalesce(Rebooking.Id, -1) as umbuchung_id,
    coalesce(Rebooking.KontoId, -1) as gegenkonto_id,
 
-   coalesce(Gegenkonto.name, -1) as gegenkonto_name
+   coalesce(Gegenkonto.name, -1) as gegenkonto_name,
+   coalesce(Infotype.Id, -1) as infotype_id,
+   coalesce(Infotype.name, -1) as infotype_name,
+   Buchung.Kandidate
 
   from Buchung
   inner join Konto on Konto.Id = Buchung.KontoId
@@ -33,7 +36,9 @@
 
   left join Buchung as Rebooking on Rebooking.Id = Buchung.GegenbuchungId
   left join Konto as Gegenkonto on Gegenkonto.Id = Rebooking.KontoId
+  left join Infotype as Infotype on Infotype.Id = Buchung.InfotypeId
 
 ;
+
 -- Ausführen am lokalen Terminal
 -- sqlite3 Databases/FinanzDb_Test.db3 < Databases/queries.sql
