@@ -35,8 +35,15 @@ exports.api = {
             .catch(catchError(res, next))
     },
 
-    getCategoriess: function (req, res, next) {
+    getCategories: function (req, res, next) {
         knex.select().table('Kategorie')
+            .orderBy('name')
+            .then(fetchRows(res))
+            .catch(catchError(res, next))
+    },
+
+    getInfotypes: function (req, res, next) {
+        knex.select().table('Infotype')
             .orderBy('name')
             .then(fetchRows(res))
             .catch(catchError(res, next))

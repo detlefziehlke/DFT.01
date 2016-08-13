@@ -34,7 +34,8 @@ app.get('/finance/api/getEntryById/:id', routes.finance.api.getEntry);
 
 app.get('/finance/api/getAccounts', routes.finance.api.getAccounts);
 app.get('/finance/api/getPartners', routes.finance.api.getPartners);
-app.get('/finance/api/getCategories', routes.finance.api.getCategoriess);
+app.get('/finance/api/getCategories', routes.finance.api.getCategories);
+app.get('/finance/api/getInfotypes', routes.finance.api.getInfotypes);
 
 app.use(function (err, req, res, next) {
   var msg = 'invalid request / error occured: ' + err;

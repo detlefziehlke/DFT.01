@@ -13,4 +13,5 @@ INSERT INTO `Infotype` (Id,Name) VALUES
  (5,'Umzug'),
  (6,'Bildung'),
  (7,'Instandhaltung'),
- (11,'Kandidat');
+ (11,'Kandidat'),
+ (22,'Standard Haushalt');
