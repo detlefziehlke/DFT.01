@@ -7,6 +7,7 @@
    Buchung.Datum as datum,
    Buchung.Betrag as betrag,
    Buchung.Memo as memo,
+   Buchung.Typ as type,
 
    Konto.Id as konto_id,
    Konto.Name as konto_name,
