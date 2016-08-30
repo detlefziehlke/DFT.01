@@ -41,5 +41,15 @@
 
 ;
 
+drop view if exists konto_salden;
+
+CREATE VIEW konto_salden AS
+
+select konto.id as id, konto.name as konto, round(sum(buchung.betrag),2) as saldo
+from konto inner join buchung on konto.id=buchung.kontoId
+
+group by konto.name having saldo <> 0.0
+order by konto.name
+;
 -- Ausführen am lokalen Terminal
 -- sqlite3 Databases/FinanzDb_Test.db3 < Databases/queries.sql
