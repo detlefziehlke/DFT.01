@@ -11,18 +11,19 @@ app.use(logger('dev'));
 var port = process.env.port || 8080;
 var serverProject = "DFT.01";
 
+console.log('env', app.get('env'));
 if (app.get('env') === 'test')
-  app.set('finance_db', './Databases/FinanzDb_Test.db3');
+    app.set('finance_db', './Databases/FinanzDb_Test.db3');
 else
-  app.set('finance_db', './Databases/FinanzDb_Prod.db3')
+    app.set('finance_db', './Databases/FinanzDb_Prod.db3')
 
 var routes = require('./routes');
 routes.finance.setup(app);
 
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE');
-  next();
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE');
+    next();
 });
 
 
@@ -38,10 +39,10 @@ app.get('/finance/api/getCategories', routes.finance.api.getCategories);
 app.get('/finance/api/getInfotypes', routes.finance.api.getInfotypes);
 
 app.use(function (err, req, res, next) {
-  var msg = 'invalid request / error occured: ' + err;
-  console.log(msg);
-  res.status(err.status || 500);
-  res.send(msg);
+    var msg = 'invalid request / error occured: ' + err;
+    console.log(msg);
+    res.status(err.status || 500);
+    res.send(msg);
 });
 
 app.listen(port);
