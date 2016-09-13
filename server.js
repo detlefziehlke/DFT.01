@@ -13,9 +13,10 @@ var serverProject = "DFT.01";
 
 console.log('env', app.get('env'));
 if (app.get('env') === 'test')
-    app.set('finance_db', './Databases/FinanzDb_Test.db3');
+    // app.set('finance_db', './Databases/FinanzDb_Test.db3');
+    app.set('finance_db', __dirname + '/Databases/FinanzDb_Test.db3');
 else
-    app.set('finance_db', './Databases/FinanzDb_Prod.db3')
+    app.set('finance_db', __dirname + '/Databases/FinanzDb_Prod.db3');
 
 var routes = require('./routes');
 routes.finance.setup(app);
