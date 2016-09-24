@@ -31,7 +31,32 @@ exports.api = {
         knex.select().table('unit_of_quantity')
             .then(fetchRows(res))
             .catch(catchError(res, next))
+    },
+
+    getFoodIntake: function (req, res, next) {
+        knex.select().table('food_intake')
+            .then(fetchRows(res))
+            .catch(catchError(res, next))
+    },
+
+    getFoodIntakeAfterDate: function (req, res, next) {
+        console.log('getFoodIntakeAfterDate');
+        var dateFrom = req.params.date;
+        knex.select().table('food_intake')
+            .where('date', '>=', dateFrom)
+            .then(fetchRows(res))
+            .catch(catchError(res, next))
     }
+/*
+ var acc = req.params.acc;
+ var where;
+ if (isNaN(acc))
+ where = {'Konto.Name': acc};
+ else
+ where = {'Konto.Id': acc};
+ */
+
+
 }
 
 // -------------------------------------------

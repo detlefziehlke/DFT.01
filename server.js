@@ -47,6 +47,8 @@ app.get('/finance/api/getInfotypes', routes.finance.api.getInfotypes);
 app.get('/food/api/getFood', routes.food.api.getFood);
 app.get('/food/api/getBomLink', routes.food.api.getBomLink);
 app.get('/food/api/getUoq', routes.food.api.getUoq);
+app.get('/food/api/getFoodIntakeAfterDate/:date', routes.food.api.getFoodIntakeAfterDate);
+app.get('/food/api/getFoodIntake', routes.food.api.getFoodIntake);
 
 app.use(function (err, req, res, next) {
     var msg = 'invalid request / error occured: ' + err;
