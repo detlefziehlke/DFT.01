@@ -18,8 +18,13 @@ if (app.get('env') === 'test')
 else
     app.set('finance_db', __dirname + '/Databases/FinanzDb_Prod.db3');
 
+app.set('food_db', __dirname + '/Databases/food.db3')
+
 var routes = require('./routes');
+
+// routes.finance.setup(app);
 routes.finance.setup(app);
+routes.food.setup(app);
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -38,6 +43,10 @@ app.get('/finance/api/getAccounts', routes.finance.api.getAccounts);
 app.get('/finance/api/getPartners', routes.finance.api.getPartners);
 app.get('/finance/api/getCategories', routes.finance.api.getCategories);
 app.get('/finance/api/getInfotypes', routes.finance.api.getInfotypes);
+
+app.get('/food/api/getFood', routes.food.api.getFood);
+app.get('/food/api/getBomLink', routes.food.api.getBomLink);
+app.get('/food/api/getUoq', routes.food.api.getUoq);
 
 app.use(function (err, req, res, next) {
     var msg = 'invalid request / error occured: ' + err;
