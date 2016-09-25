@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(logger('dev'));
 
 var port = process.env.port || 8080;
@@ -49,6 +50,8 @@ app.get('/food/api/getBomLink', routes.food.api.getBomLink);
 app.get('/food/api/getUoq', routes.food.api.getUoq);
 app.get('/food/api/getFoodIntakeAfterDate/:date', routes.food.api.getFoodIntakeAfterDate);
 app.get('/food/api/getFoodIntake', routes.food.api.getFoodIntake);
+
+app.post('/food/api/insertFoodIntakes', routes.food.api.insertFoodIntakes);
 
 app.use(function (err, req, res, next) {
     var msg = 'invalid request / error occured: ' + err;

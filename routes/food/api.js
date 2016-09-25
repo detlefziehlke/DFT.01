@@ -40,22 +40,27 @@ exports.api = {
     },
 
     getFoodIntakeAfterDate: function (req, res, next) {
-        console.log('getFoodIntakeAfterDate');
         var dateFrom = req.params.date;
         knex.select().table('food_intake')
             .where('date', '>=', dateFrom)
             .then(fetchRows(res))
             .catch(catchError(res, next))
-    }
-/*
- var acc = req.params.acc;
- var where;
- if (isNaN(acc))
- where = {'Konto.Name': acc};
- else
- where = {'Konto.Id': acc};
- */
+    },
 
+    insertFoodIntakes: function (req, res, next) {
+        var data = req.body;
+        knex('food_intake')
+            .insert(data)
+            .catch(catchError(res, next))
+
+        knex.raw('select last_insert_rowid() as id')
+            .then(function (resp) {
+                data.id = resp[0]['id'];
+                res.writeHead(200, {"Content-Type": "application/json"});
+                res.end(JSON.stringify(data));
+            })
+            .catch(catchError(res, next));
+    }
 
 }
 
