@@ -9,7 +9,8 @@ exports.setup = function (app) {
         client: 'sqlite3',
         connection: {
             filename: filename
-        }
+        },
+        useNullAsDefault: true
     });
 };
 

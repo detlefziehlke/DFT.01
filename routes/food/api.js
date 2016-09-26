@@ -9,7 +9,8 @@ exports.setup = function (app) {
         client: 'sqlite3',
         connection: {
             filename: filename
-        }
+        },
+        useNullAsDefault: true
     });
 };
 
@@ -34,15 +35,23 @@ exports.api = {
     },
 
     getFoodIntake: function (req, res, next) {
-        knex.select().table('food_intake')
-            .then(fetchRows(res))
-            .catch(catchError(res, next))
-    },
+        let args_from = [true];
+        let args_to = [true];
 
-    getFoodIntakeAfterDate: function (req, res, next) {
-        var dateFrom = req.params.date;
+        if (req.query.from) {
+            if (req.query.from.length == 10)
+                req.query.from += ' 00:00:00.000';
+            args_from = ['date', '>=', req.query.from]
+        }
+        if (req.query.to) {
+            if (req.query.to.length == 10)
+                req.query.to += ' 00:00:00.000';
+            args_to = ['date', '<=', req.query.to]
+        }
+
         knex.select().table('food_intake')
-            .where('date', '>=', dateFrom)
+            .where(...args_from)
+            .andWhere(...args_to)
             .then(fetchRows(res))
             .catch(catchError(res, next))
     },

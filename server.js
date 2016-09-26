@@ -48,7 +48,6 @@ app.get('/finance/api/getInfotypes', routes.finance.api.getInfotypes);
 app.get('/food/api/getFood', routes.food.api.getFood);
 app.get('/food/api/getBomLink', routes.food.api.getBomLink);
 app.get('/food/api/getUoq', routes.food.api.getUoq);
-app.get('/food/api/getFoodIntakeAfterDate/:date', routes.food.api.getFoodIntakeAfterDate);
 app.get('/food/api/getFoodIntake', routes.food.api.getFoodIntake);
 
 app.post('/food/api/insertFoodIntakes', routes.food.api.insertFoodIntakes);
@@ -61,6 +60,5 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(port);
-console.log('database file for finance app used: ' + app.get('finance_db'));
 console.log('Server (' + serverProject + ') is running at port ' + port + ' in mode ' + app.get('env'));
 
